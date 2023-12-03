@@ -57,3 +57,4 @@ em.persist(member);
 
 * 지연 로딩(Lazy Loading)
 
+그런데 깃이 왜이러냐...
