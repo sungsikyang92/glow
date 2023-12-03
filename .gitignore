@@ -4,6 +4,7 @@ target/
 !**/src/test/**/target/
 
 persistence.xml
+.idea/*
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
