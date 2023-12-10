@@ -15,31 +15,21 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         try {
-//            멤버 저장
-//            Member member = new Member();
-//            member.setId(2L);
-//            member.setName("HelloB");
-//            em.persist(member);
 
-//            멤버 찾기
-//            Member findMember = em.find(Member.class, 1L);
-//            System.out.println("findMember.id = " + findMember.getId());
-//            System.out.println("findMember.name = " + findMember.getName());
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
 
-//              멤버 삭제
-//            em.remove(findMember);
+            Member member = new Member();
+            member.setUsername("member1");
+//            member.setTeamId(team.getId());
+            member.setTeam(team);
+            em.persist(member);
 
-//            멤버 수정
-//            findMember.setName("HelloJPA");
+            Member findMember = em.find(Member.class, member.getId());
 
-            List<Member> result = em.createQuery("select m from Member m", Member.class)
-                                    .setFirstResult(1)      // 이 두개를 가지고
-                                    .setMaxResults(10)      // pagination 가능하다.
-                                    .getResultList();
-
-            for (Member member : result) {
-                System.out.println("member.getName() = " + member.getName());
-            }
+            Team findTeam = findMember.getTeam();
+            System.out.println("findTeam = " + findTeam.getName());
 
             tx.commit();
         } catch (Exception e) {

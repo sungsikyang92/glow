@@ -51,10 +51,41 @@ em.persist(member);
 
 * 트랜잭션을 지원하는 쓰기 지연(transactional write-behind)
 
-  * 
+  * ```java
+    Member member1 = new Member(150L, "A");
+                Member member2 = new Member(160L, "B");
+    
+    em.persist(member1);
+    em.persist(member2);
+    
+    이때 sql문이 실행되는 것이 아니라. 쓰기지연 sql에 저장되어 있는다. 그 후 commit되면 쿼리문이 한번에 실행된다.
+    tx.commit();
+    ```
 
 * 변경 감지(Dirty Checking)
 
+  * 수정되면 flush()시점에 반영된다.
+    * em.flush() - 직접호출
+    * 트랜잭션 커밋 - 플러시 자동 호출
+    * JPQL 쿼리 실행 - 플러시 자동 호출
+
 * 지연 로딩(Lazy Loading)
 
-그런데 깃이 왜이러냐...
+
+
+준영속 상태..
+
+* 영속 상태의 엔티티가 영속성 컨텍스트에서분리(detached)
+
+* 영속성 컨텍스트가 제공하는 기능을 사용 못함
+
+* 만드는 방법
+
+  * em.detach(entity)
+    * 특정 엔티티만 준영속 상태로 전환
+  * em.clear()
+    * 영속성 컨텍스트를 완전히 초기화
+  * em.close()
+    * 영속성 컨텍스트를 종료
+
+  
